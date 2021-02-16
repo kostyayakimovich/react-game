@@ -28,9 +28,11 @@ html,
 }
 
 .App {
-  background: linear-gradient(135deg, #b4ac62 0%, #6f8317 100%), #818f44;
+  background: linear-gradient(135deg, #b6b399 0%, #a2a78e 100%), #e4eeba;
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 40px;
 }

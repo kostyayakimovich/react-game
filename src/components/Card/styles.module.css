@@ -18,13 +18,13 @@
 
 @media (max-width: 640px) {
   .flipCard {
-    width: 20%;
-    padding-bottom: calc(20% * 1.33);
+    width: 14%;
+    padding-bottom: calc(12% * 1.33);
   }
 
   .flipCard.small {
     width: 20%;
-    padding-bottom: calc(20% * 1.33);
+    padding-bottom: calc(12% * 1.33);
   }
 }
 
