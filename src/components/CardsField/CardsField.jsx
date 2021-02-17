@@ -1,10 +1,21 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import Card from '../Card';
+import useSound from 'use-sound';
+import soundGame from '../../assets/audio/soundGame.mp3';
 import styles from './styles.module.css';
 
-function CardField({ cards, onClick, cardsShirt }) {
+function CardField({ cards, onClick, cardsShirt,volumeMusic}) {
+  
+  const [playSoundGame,{stop,isPlaying}] = useSound(soundGame, {volume:volumeMusic});
+   
+ useEffect(()=>{
+  playSoundGame();  
+    if(!isPlaying) playSoundGame();     
+   return () =>stop();   
+},[playSoundGame,stop,isPlaying])
+
   return (
     <div className={styles.cardField}>
       {

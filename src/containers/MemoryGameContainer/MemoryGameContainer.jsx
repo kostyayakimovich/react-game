@@ -11,11 +11,12 @@ import PlayerForm from '../../components/PlayerForm';
 export default function MemoryGameContainer() {
   const player = useSelector((state) => state.playFormReducer.player);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(initResults());
   }, [dispatch]);
-
+  
+   
   const savePlayer = useCallback((e) => {
     e.preventDefault();
     const inputs = [...e.currentTarget.elements].slice(0, 3);
