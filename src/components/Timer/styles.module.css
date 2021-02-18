@@ -9,6 +9,9 @@
 }
 
 .timeIsOver {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   color: #8b0000;
   font-size: 30px;
   margin: 0 auto;

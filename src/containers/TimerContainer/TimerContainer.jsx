@@ -6,10 +6,12 @@ import Timer from '../../components/Timer';
 import {
   clearTime, setTime, setResult,
 } from './timerActions';
+import { setIsEndTimer } from '../Menu/menuActions';
 
-function TimerContainer({ isWin }) {
+function TimerContainer({ isWin, isEndTimer }) {
   const dispatch = useDispatch();
   const time = useSelector((state) => state.timerReducer.time);
+  const timerValue = useSelector((state)=>state.menuReducer.timer);
   const cardsAmount = useSelector((state) => state.menuReducer.gameDifficulty);
   const timerId = useRef(null);
 
@@ -30,6 +32,19 @@ function TimerContainer({ isWin }) {
       clearInterval(timerId.current);
     }
   }, [isWin, cardsAmount, dispatch]);
+
+  useEffect(() => {
+    if (isEndTimer) {
+      clearInterval(timerId.current);
+    }
+  }, [isEndTimer]);
+
+  useEffect(() => {
+    if(timerValue==='1'&& time >= 60)
+   dispatch(setIsEndTimer(true));
+   if(timerValue==='2'&& time >= 120)
+   dispatch(setIsEndTimer(true));
+  }, [time,timerValue,dispatch]);
 
   return (
     <Timer time={time} startTimer={startTimer} stopTimer={stopTimer} />

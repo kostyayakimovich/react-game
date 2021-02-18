@@ -13,8 +13,12 @@ function CardField({ cards, onClick, cardsShirt,volumeMusic}) {
  useEffect(()=>{
   playSoundGame();  
     if(!isPlaying) playSoundGame();     
+},[playSoundGame,isPlaying])
+
+  
+useEffect(()=>{    
    return () =>stop();   
-},[playSoundGame,stop,isPlaying])
+},[stop])
 
   return (
     <div className={styles.cardField}>

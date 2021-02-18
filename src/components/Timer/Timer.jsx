@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import styles from './styles.module.css';
 import timeConverter from './timeConverter';
 
 function Timer({ time, startTimer, stopTimer }) {
+ 
+
+
+
   useEffect(
     () => {
       startTimer();

@@ -6,6 +6,7 @@ import {
     time: 0,
     timer: null,
     results: [],
+   
   };
   
   export default function timerReducer(state = initialState, action) {

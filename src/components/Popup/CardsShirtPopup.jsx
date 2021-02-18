@@ -18,7 +18,7 @@ function CardsShirtPopup({ name, onChange, value }) {
           checked={value === flagCardShirt}
         />
         <div className={styles.cardShirt}>
-          <img src={flagCardShirt} alt="minions" />
+          <img src={flagCardShirt} alt="flags" />
         </div>
       </label>
       <label>
@@ -30,7 +30,7 @@ function CardsShirtPopup({ name, onChange, value }) {
           checked={value === countryCardShirt}
         />
         <div className={styles.cardShirt}>
-          <img src={countryCardShirt} alt="smiles" />
+          <img src={countryCardShirt} alt="tech" />
         </div>
       </label>
     </div>

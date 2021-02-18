@@ -4,10 +4,14 @@ import win from '../../assets/audio/win.mp3';
 import './styles.css';
 
 export default function Congratulations({volumeSound}) {
-  const [playWin] = useSound(win,  { volume: volumeSound });
+  const [playWin,{stop}] = useSound(win,  { volume: volumeSound });
   useEffect(()=>{
-    playWin();
+    playWin();  
   },[playWin])
+
+  useEffect(()=>{    
+    return () =>stop();   
+ },[stop])
 
   return (
     <div className="congratulationsContainer">

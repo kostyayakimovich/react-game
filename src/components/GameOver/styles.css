@@ -1,0 +1,11 @@
+.gameOverContainer {
+  margin: 0 auto;
+}
+.gameover {
+  color: #8b0000;
+  font-size: 35px;
+  margin: auto;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  font-style: italic;
+}

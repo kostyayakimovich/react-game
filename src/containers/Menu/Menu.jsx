@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setCardsShirt, setGameDifficulty, setVisibleItem } from './menuActions';
+import { setCardsShirt, setGameDifficulty, setVisibleItem, setTimer } from './menuActions';
 import styles from './styles.module.css';
 import MenuItem from '../../components/MenuItem';
 import {
-  GameDifficultyPopup, CardsShirtPopup, RulesPopup, Top10Popup,
+  GameDifficultyPopup, CardsShirtPopup, RulesPopup, Top10Popup, TimerPopup,
 } from '../../components/Popup';
 import {
-  gameDifficulty, rules, cardsShirt, top, gameMenu,
+  gameDifficulty, rules, cardsShirt, top, gameMenu, timer
 } from './manuItemsNames';
 
 export default function Menu() {
@@ -18,6 +18,7 @@ export default function Menu() {
   const player = useSelector((state) => state.playFormReducer.player);
   const gameDifficultyValue = useSelector((state) => state.menuReducer.gameDifficulty);
   const cardsShirtValue = useSelector((state) => state.menuReducer.cardsShirt);
+  const timerValue = useSelector((state) => state.menuReducer.timer);
 
   const showPopup = useCallback((e) => {
     const eventElemName = e.currentTarget.dataset.name;
@@ -36,6 +37,10 @@ export default function Menu() {
     dispatch(setCardsShirt(e.target.value));
   }, [dispatch]);
 
+  const selectTimer = useCallback((e) => {
+    dispatch(setTimer(e.target.value));
+  }, [dispatch]);
+
   document.addEventListener('click', (e) => {
     if (!e.target.closest(`.${gameMenu}`)) {
       dispatch(setVisibleItem(null));
@@ -52,6 +57,9 @@ export default function Menu() {
       </MenuItem>
       <MenuItem name={cardsShirt} onClick={showPopup}>
         {visibleItemName === cardsShirt ? <CardsShirtPopup name={cardsShirt} onChange={selectCardsShirt} value={cardsShirtValue} /> : '' }
+      </MenuItem>
+      <MenuItem name={timer} onClick={showPopup}>
+        {visibleItemName === timer ? <TimerPopup name={timer} onChange={selectTimer} value={timerValue} /> : '' }
       </MenuItem>
       <MenuItem name={rules} onClick={showPopup}>
         {visibleItemName === rules ? <RulesPopup name={rules} /> : '' }

@@ -9,9 +9,12 @@ import BackButton from '../../components/BackButton';
 import CardsFieldContainer from '../CardsFieldContainer';
 import TimerContainer from '../TimerContainer/TimerContainer';
 import fullscreen from '../../assets/img/fullscreen.png';
-
-import styles from './styles.module.css';
 import Volume from '../../components/Volume/Volume';
+import GameOver from '../../components/GameOver/GameOver';
+import styles from './styles.module.css';
+import { setIsEndTimer } from '../Menu/menuActions';
+import NewGameButton from '../../components/NewGameButton';
+
 
 export default function MainContainer() {
   const[volumeMusic, setVolumeMusic]= useState(0.5);
@@ -20,11 +23,15 @@ export default function MainContainer() {
   const handle = useFullScreenHandle();
   const dispatch = useDispatch();
   const isWin = useSelector((state) => state.cardsReducer.isWin);
+  const isEndTimer = useSelector((state) => state.menuReducer.isEndTimer);
   
   
   const goBack = useCallback(() => {
     dispatch(resetCardsField());
+    dispatch(setIsEndTimer(false));
   }, [dispatch]);
+
+  
 
   useEffect(() => {
     dispatch(initGame());
@@ -35,11 +42,11 @@ export default function MainContainer() {
     <img alt = 'fullscreen' src ={fullscreen} onClick={handle.enter}  className={styles.imgFullScreen}/>
     
       <FullScreen className = {styles.fullScreenContainer} handle={handle}>
-      {isWin ? <Congratulations volumeSound ={volumeSound} />
-        : (
-          <CardsFieldContainer volumeMusic = {volumeMusic} volumeSound = {volumeSound} />
-        )}
-      <TimerContainer isWin={isWin} />
+      {isWin && <Congratulations volumeSound ={volumeSound} />}
+      {isEndTimer && <GameOver volumeSound ={volumeSound} />}
+         {!isWin&&!isEndTimer&& <CardsFieldContainer volumeMusic = {volumeMusic} volumeSound = {volumeSound} />
+        }
+      <TimerContainer isWin={isWin} isEndTimer={isEndTimer} />
      
       <BackButton onClick={goBack} />
       <Volume setVolumeMusic={setVolumeMusic} 
@@ -47,6 +54,7 @@ export default function MainContainer() {
       volumeSound = {volumeSound}
       volumeMusic = {volumeMusic}
       />
+      <NewGameButton/>
       </FullScreen>
     </>
   );
