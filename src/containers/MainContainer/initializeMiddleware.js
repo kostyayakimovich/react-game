@@ -15,7 +15,8 @@ const initializeMiddleware = (store) => (next) => (action) => {
       index,
     })));
     store.dispatch(setCards(cardsArray));
-  } else {
+    localStorage.setItem('cards', JSON.stringify(cardsArray));
+      } else {
     next(action);
   }
 };

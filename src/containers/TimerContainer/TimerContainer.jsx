@@ -8,13 +8,17 @@ import {
 } from './timerActions';
 import { setIsEndTimer } from '../Menu/menuActions';
 
-function TimerContainer({ isWin, isEndTimer }) {
+function TimerContainer({ isWin, isEndTimer,isNewGame, setIsnewGame }) {
   const dispatch = useDispatch();
   const time = useSelector((state) => state.timerReducer.time);
   const timerValue = useSelector((state)=>state.menuReducer.timer);
   const cardsAmount = useSelector((state) => state.menuReducer.gameDifficulty);
   const timerId = useRef(null);
 
+ useEffect(()=>{
+  localStorage.setItem('time', JSON.stringify(time));
+ },[time])
+  
   const startTimer = useCallback(() => {
     timerId.current = setInterval(() => {
       dispatch(setTime());
@@ -39,6 +43,10 @@ function TimerContainer({ isWin, isEndTimer }) {
     }
   }, [isEndTimer]);
 
+  useEffect(()=>{     
+    return()=>  localStorage.removeItem('time') ;
+   },[])
+
   useEffect(() => {
     if(timerValue==='1'&& time >= 60)
    dispatch(setIsEndTimer(true));
@@ -47,7 +55,7 @@ function TimerContainer({ isWin, isEndTimer }) {
   }, [time,timerValue,dispatch]);
 
   return (
-    <Timer time={time} startTimer={startTimer} stopTimer={stopTimer} />
+    <Timer time={time} startTimer={startTimer} stopTimer={stopTimer} isNewGame={isNewGame}/>
   );
 }
 

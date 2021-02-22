@@ -1,11 +1,11 @@
-import React, { useCallback} from 'react';
+import React, { useCallback, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useSound from 'use-sound';
 import CardsField from '../../components/CardsField';
 import pick from '../../assets/audio/pick.mp3';
 import success from '../../assets/audio/success.mp3';
 import wrong from '../../assets/audio/wrong.mp3';
-
+import soundGame from '../../assets/audio/soundGame.mp3';
 import {
   openCard, hideCard, closeCard, setOpenedCard, deleteOpenedCard, blockClick,
 } from './cardsActions';
@@ -51,6 +51,28 @@ playPick();
       dispatch(setOpenedCard(src, index));
     }
   }, [dispatch, isBlockedClick, openedCard,playPick,playSuccess,playWrong]);
+
+  const [playSoundGame,{stop,isPlaying}] = useSound(soundGame, {volume:volumeMusic});
+   
+  useEffect(()=>{
+   playSoundGame();  
+     if(!isPlaying) playSoundGame();     
+ },[playSoundGame,isPlaying])
+ 
+ 
+ useEffect(()=>{    
+    return () =>stop();   
+ },[stop])
+
+  useEffect(()=>{    
+    return()=> localStorage.removeItem('cards');
+   },[])
+   useEffect(()=>{     
+     return()=>  localStorage.removeItem('cardsHidden') ;
+    },[])
+    useEffect(()=>{     
+     return()=>  localStorage.removeItem('isWinCount') ;
+    },[])
 
   return (
     <CardsField onClick={onClick} cards={cards} cardsShirt={cardsShirt} volumeMusic ={volumeMusic} />

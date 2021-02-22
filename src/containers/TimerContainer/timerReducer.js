@@ -3,7 +3,7 @@ import {
   } from './timerActions';
   
   const initialState = {
-    time: 0,
+    time:  JSON.parse(localStorage.getItem('time'))|| 0,
     timer: null,
     results: [],
    

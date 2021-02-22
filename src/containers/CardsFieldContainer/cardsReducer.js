@@ -6,7 +6,7 @@ import {
   const initialState = {
     isBlockedClick: false,
     openedCard: null,
-    cards: [],
+    cards:  JSON.parse(localStorage.getItem('cards'))||[],
     hiddenCards: 0,
     isWin: false,
   };
@@ -35,7 +35,8 @@ import {
           hiddenCards: 0,
         };
       }
-  
+
+      
       case OPEN_CARD: {
         return {
           ...state,
@@ -52,6 +53,18 @@ import {
   
       case HIDE_CARD: {
         let count = state.hiddenCards;
+        let countLocal = JSON.parse(localStorage.getItem('isWinCount'))||state.hiddenCards;
+        const hiddenCards =  state.cards.map((card) => {
+          if (card.src === action.data) {
+            countLocal += 1;
+            return {
+              ...card,
+              hidden: true,
+            };
+          } return card;
+        });
+        localStorage.setItem('cardsHidden', JSON.stringify(hiddenCards));
+        localStorage.setItem('isWinCount', JSON.stringify(countLocal));
         return {
           ...state,
           isBlockedClick: false,
@@ -64,8 +77,10 @@ import {
               };
             } return card;
           }),
+          
           hiddenCards: count,
-          isWin: count === state.cards.length,
+          isWin: (JSON.parse(localStorage.getItem('isWinCount'))?
+          JSON.parse(localStorage.getItem('isWinCount')) : count) === state.cards.length,
         };
       }
   

@@ -9,8 +9,14 @@ export default function Volume({setVolumeMusic,setVolumeSound, volumeSound, volu
     const [powerMelody, setPowerMelody] = useState(0);
     const [powerSound, setPowerSound] = useState(0);
 
-    const handleVolumeMusic = useCallback(e=>setVolumeMusic(e.target.value),[setVolumeMusic]);
-    const handleVolumeSound = useCallback(e=>setVolumeSound(e.target.value),[setVolumeSound]);
+    const handleVolumeMusic = useCallback(e=>{
+      setVolumeMusic(e.target.value);
+      localStorage.setItem('volumeMusic', JSON.stringify(e.target.value));
+    },[setVolumeMusic]);
+    const handleVolumeSound = useCallback(e=>{
+      setVolumeSound(e.target.value);
+      localStorage.setItem('volumeSound', JSON.stringify(e.target.value));
+    },[setVolumeSound]);
    const handleClickMelody = useCallback(()=>{
        setPowerMelody(volumeMusic);
        setVolumeMusic(0);

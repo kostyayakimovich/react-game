@@ -1,5 +1,11 @@
 export default function shuffle(array) {
-    let currentIndex = array.length;
+  
+  if(JSON.parse(localStorage.getItem('cardsHidden')))
+   return JSON.parse(localStorage.getItem('cardsHidden'));
+  if(JSON.parse(localStorage.getItem('cards')))
+   return JSON.parse(localStorage.getItem('cards'));
+  const shuffledArray = [...array];
+    let currentIndex = shuffledArray.length;
     let temporaryValue;
     let randomIndex;
   
@@ -7,10 +13,10 @@ export default function shuffle(array) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
   
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+      temporaryValue = shuffledArray[currentIndex];
+      shuffledArray[currentIndex] = shuffledArray[randomIndex];
+      shuffledArray[randomIndex] = temporaryValue;
     }
   
-    return array;
+    return shuffledArray;
   }

@@ -4,10 +4,10 @@ import {
   import { flagCardShirt } from '../../assets/img/flags/flags';
   
   const initialState = {
-    gameDifficulty: '12',
+    gameDifficulty:localStorage.getItem('gameDifficulty')|| '12',
     visibleItem: null,
-    cardsShirt: flagCardShirt,
-    timer: '60',
+    cardsShirt: localStorage.getItem('cardsShirt')|| flagCardShirt,
+    timer:localStorage.getItem('timer')|| '60',
     isEndTimer: false,
   };
   

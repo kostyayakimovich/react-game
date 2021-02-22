@@ -31,14 +31,17 @@ export default function Menu() {
 
   const selectGameDifficulty = useCallback((e) => {
     dispatch(setGameDifficulty(e.target.value));
+    localStorage.setItem('gameDifficulty', e.target.value);
   }, [dispatch]);
 
   const selectCardsShirt = useCallback((e) => {
     dispatch(setCardsShirt(e.target.value));
+    localStorage.setItem('cardsShirt', e.target.value);
   }, [dispatch]);
 
   const selectTimer = useCallback((e) => {
     dispatch(setTimer(e.target.value));
+    localStorage.setItem('timer', e.target.value);
   }, [dispatch]);
 
   document.addEventListener('click', (e) => {
