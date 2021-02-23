@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect} from 'react';
+import React, { useCallback, useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useSound from 'use-sound';
 import CardsField from '../../components/CardsField';
@@ -6,6 +6,7 @@ import pick from '../../assets/audio/pick.mp3';
 import success from '../../assets/audio/success.mp3';
 import wrong from '../../assets/audio/wrong.mp3';
 import soundGame from '../../assets/audio/soundGame.mp3';
+import soundGame2 from '../../assets/audio/soundGame2.mp3';
 import {
   openCard, hideCard, closeCard, setOpenedCard, deleteOpenedCard, blockClick,
 } from './cardsActions';
@@ -20,6 +21,39 @@ const [playPick] = useSound(pick,  { volume: volumeSound });
 const [playSuccess] = useSound(success,  { volume: volumeSound });
 const [playWrong] = useSound(wrong,  { volume: volumeSound });
 
+const[isMusic2, setIsMusic2]= useState(
+  localStorage.getItem('musicGame')==="soundGame"?false:true);
+const[musicGame, setMusicGame] = 
+useState(  
+  localStorage.getItem('musicGame')
+||"soundGame");
+
+const handleKeyPress = useCallback(  (event) => { 
+   
+    if (event.shiftKey&& event.code === 'Space') {
+     if(localStorage.getItem('musicGame')==="soundGame"){
+       setMusicGame("soundGame2");
+       localStorage.setItem('musicGame', "soundGame2");
+     }
+     else{
+      setMusicGame("soundGame");
+      localStorage.setItem('musicGame',"soundGame"); 
+     }
+      
+    }    
+  },
+  []
+);
+useEffect(()=>{
+document.addEventListener("keydown", handleKeyPress, false);
+return ()=>{
+document.removeEventListener("keydown", handleKeyPress, false);
+}
+},[handleKeyPress])    
+
+useEffect(()=>{
+  musicGame === 'soundGame2'?  setIsMusic2(true) : setIsMusic2(false);
+},[musicGame])
 
 
   const onClick = useCallback((index, src) => {
@@ -51,8 +85,8 @@ playPick();
       dispatch(setOpenedCard(src, index));
     }
   }, [dispatch, isBlockedClick, openedCard,playPick,playSuccess,playWrong]);
-
-  const [playSoundGame,{stop,isPlaying}] = useSound(soundGame, {volume:volumeMusic});
+  const [playSoundGame,{stop,isPlaying}] =
+   useSound(!isMusic2? soundGame:soundGame2, {volume:volumeMusic});
    
   useEffect(()=>{
    playSoundGame();  
@@ -75,7 +109,7 @@ playPick();
     },[])
 
   return (
-    <CardsField onClick={onClick} cards={cards} cardsShirt={cardsShirt} volumeMusic ={volumeMusic} />
+    <CardsField onClick={onClick} cards={cards} cardsShirt={cardsShirt} />
   );
 }
 

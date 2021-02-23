@@ -15,16 +15,26 @@ import styles from './styles.module.css';
 import { setIsEndTimer } from '../Menu/menuActions';
 import NewGameButton from '../../components/NewGameButton';
 
-
 export default function MainContainer() {
-  const[volumeMusic, setVolumeMusic]= useState( JSON.parse(localStorage.getItem('volumeMusic'))||0.5);
-  const[volumeSound, setVolumeSound]= useState( JSON.parse(localStorage.getItem('volumeSound'))||0.5);
+  const[volumeMusic, setVolumeMusic]= useState(
+     JSON.parse(localStorage.getItem('volumeMusic'))
+     ||0.5);
+  const[volumeSound, setVolumeSound]= useState( 
+    JSON.parse(localStorage.getItem('volumeSound'))
+  ||0.5);
+  const [stateMusic, setStateMusic] = useState(
+    localStorage.getItem("stateMusic")==="play"?
+    localStorage.getItem('stateMusic')
+  :"stop");
+  const [stateSound, setStateSound] = useState(
+    localStorage.getItem("stateSound") ==="play"?
+    localStorage.getItem('stateSound')
+  :"stop");
 const [isEndGame, setIsEndGame] = useState(false);
   const handle = useFullScreenHandle();
   const dispatch = useDispatch();
   const isWin = useSelector((state) => state.cardsReducer.isWin);
-  const isEndTimer = useSelector((state) => state.menuReducer.isEndTimer);
-  
+  const isEndTimer = useSelector((state) => state.menuReducer.isEndTimer);  
  
 
   const goBack = useCallback(() => {
@@ -36,9 +46,68 @@ const [isEndGame, setIsEndGame] = useState(false);
     localStorage.removeItem('time') ;
   }, [dispatch]);  
 
+  
+
   useEffect(() => {
     dispatch(initGame());
   }, [dispatch]);
+
+
+  const handleKeyPress = useCallback(
+    (event) => {
+    
+      if (event.shiftKey && event.code === 'KeyQ') {
+        handle.enter();
+      }
+      if (event.shiftKey && event.code === 'KeyA') {
+        if(stateMusic==="play")
+        localStorage.setItem('stateMusic',"stop");
+        setStateMusic("stop");
+      }
+      else{
+        localStorage.setItem('stateMusic',"play");
+        setStateMusic("play");
+      }
+
+      if (event.shiftKey && event.code === 'KeyZ') {
+        if(stateSound==="play")
+        localStorage.setItem('stateSound',"stop");
+        setStateSound("stop");
+      }
+      else{
+        localStorage.setItem('stateSound',"play");
+        setStateSound("play");
+      }
+     
+    },
+    [handle, stateMusic, stateSound]
+  );
+useEffect(()=>{
+document.addEventListener("keydown", handleKeyPress, false);
+return ()=>{
+  document.removeEventListener("keydown", handleKeyPress, false);
+}
+},[handleKeyPress])    
+  
+useEffect(()=>{
+  if(stateMusic === "stop"){
+    setVolumeMusic(0);  
+  }
+  else{
+    setVolumeMusic(JSON.parse(localStorage.getItem('volumeMusic')))
+  }
+},[stateMusic])
+
+useEffect(()=>{
+  if(stateSound === 'stop'){
+    setVolumeSound(0)
+  }
+  else{
+    setVolumeSound(JSON.parse(localStorage.getItem('volumeSound')))
+  }
+},[stateSound])
+
+ 
 
   return (
     <>
@@ -54,13 +123,13 @@ const [isEndGame, setIsEndGame] = useState(false);
       isEndTimer={isEndTimer}
       />}
      
-      <BackButton onClick={goBack} />
+      <BackButton onClick={goBack} />:<BackButton onClick={goBack} />
       <Volume setVolumeMusic={setVolumeMusic} 
       setVolumeSound ={setVolumeSound}
       volumeSound = {volumeSound}
       volumeMusic = {volumeMusic}
       />
-      <NewGameButton setIsEndGame={setIsEndGame}/>
+       <NewGameButton setIsEndGame={setIsEndGame}/>
       </FullScreen>
     </>
   );

@@ -8,11 +8,13 @@ function Timer({ time, startTimer, stopTimer, isNewGame }) {
   useEffect(
     () => {
       startTimer();
-      return stopTimer;
-    }, [startTimer, stopTimer],
+    
+    }, [startTimer],
   );
 
-  
+  useEffect(()=>{
+  return  ()=>stopTimer()
+  },[stopTimer])
   const minutes = Math.floor(time / 60);
 
   const renderTimeIsOver = () => {

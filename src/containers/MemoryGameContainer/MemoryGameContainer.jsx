@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
-
 import { initResults } from '../TimerContainer/timerActions';
 import MainContainer from '../MainContainer';
 import WelcomePage from '../../components/WelcomPage';
@@ -11,7 +10,7 @@ import PlayerForm from '../../components/PlayerForm';
 export default function MemoryGameContainer() {
   const player = useSelector((state) => state.playFormReducer.player);
   const dispatch = useDispatch();
-  
+   
   useEffect(() => {
     dispatch(initResults());
   }, [dispatch]);

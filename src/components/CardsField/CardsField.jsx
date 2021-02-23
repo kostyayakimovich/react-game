@@ -5,7 +5,7 @@ import Card from '../Card';
 
 import styles from './styles.module.css';
 
-function CardField({ cards, onClick, cardsShirt,volumeMusic}) {
+function CardField({ cards, onClick, cardsShirt}) {
   
   
 

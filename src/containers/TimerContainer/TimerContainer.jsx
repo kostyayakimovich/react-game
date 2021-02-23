@@ -43,6 +43,8 @@ function TimerContainer({ isWin, isEndTimer,isNewGame, setIsnewGame }) {
     }
   }, [isEndTimer]);
 
+  
+
   useEffect(()=>{     
     return()=>  localStorage.removeItem('time') ;
    },[])

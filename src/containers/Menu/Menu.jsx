@@ -5,10 +5,10 @@ import { setCardsShirt, setGameDifficulty, setVisibleItem, setTimer } from './me
 import styles from './styles.module.css';
 import MenuItem from '../../components/MenuItem';
 import {
-  GameDifficultyPopup, CardsShirtPopup, RulesPopup, Top10Popup, TimerPopup,
+  GameDifficultyPopup, CardsShirtPopup, RulesPopup, Top10Popup, TimerPopup, HotKeysPopup
 } from '../../components/Popup';
 import {
-  gameDifficulty, rules, cardsShirt, top, gameMenu, timer
+  gameDifficulty, rules, cardsShirt, top, gameMenu, timer, hotKeys
 } from './manuItemsNames';
 
 export default function Menu() {
@@ -63,6 +63,9 @@ export default function Menu() {
       </MenuItem>
       <MenuItem name={timer} onClick={showPopup}>
         {visibleItemName === timer ? <TimerPopup name={timer} onChange={selectTimer} value={timerValue} /> : '' }
+      </MenuItem>
+      <MenuItem name={hotKeys} onClick={showPopup}>
+        {visibleItemName === hotKeys ? <HotKeysPopup name={ `5 ${hotKeys}`} /> : '' }
       </MenuItem>
       <MenuItem name={rules} onClick={showPopup}>
         {visibleItemName === rules ? <RulesPopup name={rules} /> : '' }
