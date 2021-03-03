@@ -1,0 +1,5 @@
+{
+    "port": 443, 
+    "mongoUri": "mongodb+srv://Kanstantsin:1234@cluster0.zhz4p.mongodb.net/app?retryWrites=true&w=majority"
+
+}

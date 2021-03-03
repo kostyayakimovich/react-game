@@ -1,0 +1,16 @@
+.imgFullScreen {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.imgFullScreen:hover {
+  filter: invert(1);
+  transition: transform 1s;
+}
+.fullScreenContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}

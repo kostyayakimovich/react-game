@@ -1,0 +1,18 @@
+.button {
+  background: #141414;
+  padding: 10px;
+  border: 2px double white;
+  color: white;
+  box-shadow: 0px 0px 0 3px #141414;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  outline: none;
+}
+
+.button:hover {
+  cursor: pointer;
+  background: #380101;
+  box-shadow: 0px 0px 0 3px #380101;
+  opacity: 0.8;
+}

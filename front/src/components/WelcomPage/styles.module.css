@@ -1,0 +1,30 @@
+.container {
+  width: 80%;
+  height: 70%;
+  margin: 0 auto;
+  background: url('../../assets/img/brain.png');
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column-reverse;
+}
+
+h1 {
+  margin: 4%;
+  color: #5a5a77;
+  font-weight: 700;
+  font-family: cursive;
+  font-size: 80px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px #fbfbfc, 3px 3px #faf8f8;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 40px;
+  }
+}
