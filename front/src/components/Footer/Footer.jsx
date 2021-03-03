@@ -19,7 +19,11 @@ function Footer() {
         </a>
       </p>
       <p>
-        <a href='' target='_blank' rel='noreferrer'>
+        <a
+          href='https://www.youtube.com/watch?v=E9afWQtnObQ&feature=youtu.be'
+          target='_blank'
+          rel='noreferrer'
+        >
           <img src={youtube} alt='youtube' className={styles.footerIcon} />
         </a>
       </p>
