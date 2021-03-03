@@ -28,7 +28,11 @@ export default function Congratulations({ volumeSound, isSave, setIsSave }) {
       result: resultTime,
     };
     try {
-      const data = await request('/cong', 'POST', resultUserGame);
+      const data = await request(
+        'https://kostyayakimovich-react-game.herokuapp.com/cong',
+        'POST',
+        resultUserGame
+      );
     } catch (error) {}
   }, [player, request, resultDifficulty, resultTime]);
 
